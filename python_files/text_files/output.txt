@@ -1,0 +1,5 @@
+Enter current Hijri days: That is Shaban 29
+Enter a command: That is Shaban 30
+Enter a command: That is Ramadan 1
+Enter a command: That is Ramadan 11
+Enter a command: 

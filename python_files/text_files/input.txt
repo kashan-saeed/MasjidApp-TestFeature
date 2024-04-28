@@ -1,0 +1,16 @@
+239
+29
+inc 1
+inc 1
+inc 10
+dec 10
+dec 1
+dec 1
+dec 1
+inc 1
+dec 1
+dec 1
+setMax 30
+inc 1
+inc 1
+exit
