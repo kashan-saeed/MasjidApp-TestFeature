@@ -14,7 +14,8 @@ const objGregDateMessage = document.querySelector('.objGregDateMessage');
 const objCalcDateMessage = document.querySelector('.objCalcDateMessage');
 
 //init date 
-var dateObj = new DateAdj();
+var currMaghrebTime = new Date("December 24, 2024 5:00 PM"); //replace this with current maghreb time
+var dateObj = new DateAdj(new Date(), currMaghrebTime);
 var oldDateObjProp = undefined;
 
 //init 29/30 button, make trio invisible, set first click to true
@@ -95,7 +96,7 @@ btnCancel.addEventListener('click', () => {
 
 btnReset.addEventListener('click', () => {
     oldDateObjProp = undefined;
-    dateObj = new DateAdj();
+    dateObj = new DateAdj(new Date(), currMaghrebTime);
     isFirstClick = true;
     invisibleTrio();
 
@@ -131,7 +132,7 @@ function debugMessage() {
     var objGregDate = dateObj.getObjGregDate();
     objGregDateMessage.innerHTML = (`${objGregDate.getMonth() + 1}/${objGregDate.getDate()}`)
 
-    var calcHijri = dateObj.convertToLocalHijriDate(objGregDate);
+    var calcHijri = dateObj.convertToHijriDate(objGregDate);
     objCalcDateMessage.innerHTML = (`${dateObj.getMonthString(calcHijri.Hmonth - 1)} ${calcHijri.Hday}`);
 }
 

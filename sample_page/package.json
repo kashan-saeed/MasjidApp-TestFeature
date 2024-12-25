@@ -6,10 +6,9 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "type": "module",
-  "jest" : {
+  "jest": {
     "transform": {}
   },
-
   "name": "sample_page",
   "version": "1.0.0",
   "main": "TMACal.js",

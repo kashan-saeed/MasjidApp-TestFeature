@@ -5,41 +5,40 @@ import {convertGregToHijri, convertHijriToGreg} from "./TMACal.js";
 
 
 /*
-What ever date you give to the convert function it gives you the hijri day for that gregorian day in Saudi.
+Whatever date you give to the convert function it gives you the hijri day for that gregorian day in Saudi.
 
 When you declare new Date() it will declare the date according to where you live.
 So in Cali 2/29/2024 11:15 PM
 
 and so when you throw that into the Hijri converter it will calculate it as:
- - Give hijri calc for the morning of 2/29/2024 in Saudi
+ - The hijri calculation for the morning of 2/29/2024 in Saudi
    - Pay attention
    - it doesn't look at the time only the date. 
-   - It will give you the hijri date for the morning of that day in Saudi
+   - It will give you the hijri date for the morning of that day but in Saudi
 
-Things to uderstand:
- - Saudi is 11 hours ahead of Cali
-   - 11:25 PM Thursday in Cali is 10:25 AM Friday in Saudi
-
-Things to confirm:
- - So Cali won't start a month until Saudi has started it?
- - Does every country in the world only start the new month after Saudi?
-   - Which ones do and don't?
-
-Too much confusion due to conversion:
- - First we have to add hours to get Hijri date of that country according to the actual current time in Saudi
-   - Realize hours do not matter as the formula is only high def anough to give to the hijri date the morning of that day
- - Maybe we won't have to do that. Maybe all we need is what the Islamic day was during that day in Saudi
-
-  - You also have to adjust it for whether its maghreb or not
-
-
-
+How does the Hijri calculation work across different time zones?
+ - Remember it only gives you the date for the morning of that day in Saudi.
+    - Feb 29 in Saudi is 19 Shaban
+    - Interestingly Feb 29 in Cali is 19 Shaban, and also Feb 29 in Sydney is also 19 Shaban. And so even tho the calculation is specifically for Mecca it works all over the world.
+        - Take a look at this visual: https://docs.google.com/spreadsheets/d/1v9QRxaNXoUSo3IgupiiTyMwLpE-7bCSFP1DYdYQFEhw/edit?usp=sharing
+    - To get the proper Hijri calculation per location all you have to do is put the current date and it will convert it correctly. If it is after Maghreb then give it the next Greg date.
 */
 
+
+/**
+* Keeps track of all calender related activities
+* @param {Date} inputDateTime
+* @param {Date} inputMaghrebDateTime
+*/
 export class DateAdj {
-    constructor() {
-        var initGregDate = new Date();
-        var initHijriDate = this.convertToLocalHijriDate(initGregDate);
+    constructor(inputDateTime, inputMaghrebDateTime) {
+        if (!((inputDateTime instanceof Date) && (inputMaghrebDateTime instanceof Date))) {
+            throw new TypeError("One or both parameters are not a Date object.");
+          }
+
+        var initGregDate = inputDateTime;
+        var initMaghrebTime = inputMaghrebDateTime;
+        var initHijriDate = this.initToLocalHijriDate(initGregDate, initMaghrebTime);
         console.log(initHijriDate);
 
         this.curGregDate = initGregDate;
@@ -54,10 +53,24 @@ export class DateAdj {
         this.monthMaxArrayIndex = 0;
     }
 
-    //hijri date for the date given adjusted for location
-    convertToLocalHijriDate(theDate) {
+    //hijri date for the date given adjusted for location and if it is maghreb yet
+    //don't need to adjust for location, see notes above
+    //do need to adjust for if it is maghreb already or not
+    initToLocalHijriDate(theDate, maghrebTime) {
+        if (theDate < maghrebTime) {
+            var TMACalHijriDate = convertGregToHijri(theDate);
+            return TMACalHijriDate;
+        }
+        //if maghreb has passed use the next greg day for calculation
+        else{
+            theDate.setDate(theDate.getDate() + 1);
+            var TMACalHijriDate = convertGregToHijri(theDate);
+            return TMACalHijriDate;
+        }
+    }
+
+    convertToHijriDate(theDate) {
         var TMACalHijriDate = convertGregToHijri(theDate);
-        //Lots of code here
         return TMACalHijriDate;
     }
 
