@@ -200,7 +200,7 @@ export class DateAdj {
             boolMonthChange = true;
             this.objHijriMonth -= 1;
 
-            if (this.objHijriMonth == 0) {
+            if (this.objHijriMonth == -1) {
                 this.objHijriMonth = 11;
                 this.objHijriYear -= 1;
             }

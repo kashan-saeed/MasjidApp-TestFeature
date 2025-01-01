@@ -86,22 +86,32 @@ describe("Test Greg to Hijri", () => {
     });
 })
 
-/*
-describe("Test Hijri to greg", () => {
-    test('24 Shabaan should return 3/5/2024', () => {
-        var dateObj = convertHijriToGreg(1445, 7, 24);
+describe("Test Hijri Months, Days, and years change Properly", () => {
+    test('Hijri Year, month, and day should increment', () => {
+        var dateAdjObj = new DateAdj(new Date("July 6, 2024"), new Date("July 6, 2024 7:00 PM"));
 
-        expect(dateObj.getDate()).toBe(5);
-        expect(dateObj.getMonth()+1).toBe(3);
-        expect(dateObj.getFullYear()).toBe(2024);
+        expect(dateAdjObj.objHijriDay).toBe(30);
+        expect(dateAdjObj.objHijriMonth).toBe(11);
+        expect(dateAdjObj.objHijriYear).toBe(1445);
+
+        dateAdjObj.incrementBtn();
+
+        expect(dateAdjObj.objHijriDay).toBe(1);
+        expect(dateAdjObj.objHijriMonth).toBe(0);
+        expect(dateAdjObj.objHijriYear).toBe(1446);
     });
 
-    test('30 Shabaan should be an error but can return 3/11/2024', () => {
-        var dateObj = convertHijriToGreg(1445, 7, 30);
+    test('Hijri Year, month, and day should decrement', () => {
+        var dateAdjObj = new DateAdj(new Date("July 7, 2024"), new Date("July 7, 2024 7:00 PM"));
 
-        expect(dateObj.getDate()).toBe(11);
-        expect(dateObj.getMonth()+1).toBe(3);
-        expect(dateObj.getFullYear()).toBe(2024);
+        expect(dateAdjObj.objHijriDay).toBe(1);
+        expect(dateAdjObj.objHijriMonth).toBe(0);
+        expect(dateAdjObj.objHijriYear).toBe(1446);
+
+        dateAdjObj.decrementBtn();
+
+        expect(dateAdjObj.objHijriDay).toBe(30);
+        expect(dateAdjObj.objHijriMonth).toBe(11);
+        expect(dateAdjObj.objHijriYear).toBe(1445);
     });
 })
-    */

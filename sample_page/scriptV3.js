@@ -15,8 +15,9 @@ const objGregDateMessage = document.querySelector('.objGregDateMessage');
 const objCalcDateMessage = document.querySelector('.objCalcDateMessage');
 
 //init date 
-var currMaghrebTime = new Date("April 10, 2024 9:00 PM"); //call a func that returns the current maghreb time also put that func in "btnReset.addEventListener"
-var dateObj = new DateAdj(new Date("April 10 2024 "), currMaghrebTime);
+var currMaghrebTime = new Date(); //call a func that returns the current maghreb time also put that func in "btnReset.addEventListener"
+currMaghrebTime.setHours(7,0,0);
+var dateObj = new DateAdj(new Date(), currMaghrebTime);
 var oldDateObjProp = undefined;
 
 //init 29/30 button, make trio invisible, set first click to true
@@ -97,8 +98,9 @@ btnCancel.addEventListener('click', () => {
 
 btnReset.addEventListener('click', () => {
     oldDateObjProp = undefined;
-    currMaghrebTime = new Date("December 31, 2024 5:00 PM"); //call a func that returns the current maghreb time
-    dateObj = new DateAdj(new Date(), currMaghrebTime);
+    currMaghrebTime = new Date(); //call a func that returns the current maghreb time
+    currMaghrebTime.setHours(7,0,0);
+    dateObj = new DateAdj(new Date(), currMaghrebTime); //change this to the current time
     isFirstClick = true;
     invisibleTrio();
 
@@ -137,7 +139,7 @@ function debugMessage() {
     objGregDateMessage.innerHTML = (`${objIncrementedGregDate.getMonth() + 1}/${objIncrementedGregDate.getDate()}`)
 
     var calcHijri = dateObj.convertToHijriDate(objIncrementedGregDate);
-    objCalcDateMessage.innerHTML = (`${dateObj.getMonthString(calcHijri.Hmonth - 1)} ${calcHijri.Hday}`);
+    objCalcDateMessage.innerHTML = (`${dateObj.getMonthString(calcHijri.Hmonth)} ${calcHijri.Hday}`);
 }
 
 
