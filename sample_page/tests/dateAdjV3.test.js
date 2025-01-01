@@ -115,3 +115,27 @@ describe("Test Hijri Months, Days, and years change Properly", () => {
         expect(dateAdjObj.objHijriYear).toBe(1445);
     });
 })
+
+describe("Maghreb should change Hijri Date", () => {
+    test('Initializing before Maghreb should cause it to be expected Hijri Date', () => {
+        var dateAdjObj = new DateAdj(new Date("July 6, 2024"), new Date("July 6, 2024 7:00 PM"));
+
+        expect(dateAdjObj.objHijriDay).toBe(30);
+        expect(dateAdjObj.objHijriMonth).toBe(11);
+        expect(dateAdjObj.objHijriYear).toBe(1445);
+    });
+    
+    test('Initializing after Maghreb should cause it to be next Hijri Date', () => {
+        var dateAdjObj = new DateAdj(new Date("July 6, 2024 9:00 PM"), new Date("July 6, 2024 7:00 PM"));
+
+        expect(dateAdjObj.objHijriDay).toBe(1);
+        expect(dateAdjObj.objHijriMonth).toBe(0);
+        expect(dateAdjObj.objHijriYear).toBe(1446);
+    });
+
+})
+
+/*
+Thing you can test for:
+How changing the length of the months effects the Hijri Date
+*/
