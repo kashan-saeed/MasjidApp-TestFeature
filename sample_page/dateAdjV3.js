@@ -1,5 +1,5 @@
 //dateAdjV3.js
-import {convertGregToHijri, convertHijriToGreg} from "./TMACal.js";
+import {convertGregToHijri, convertHijriToGreg} from "./HijriCalc.js";
 
 //the dateAjd class is the system that controls the users interaction with the cal. It sits on top of the system
 
@@ -41,7 +41,7 @@ export class DateAdj {
         var initHijriDate = this.initToLocalHijriDate(initGregDate, initMaghrebTime);
         console.log(initHijriDate);
 
-        this.curGregDate = initGregDate;
+        this.incrementedCalcGregDate = initGregDate;
         this.increment = 0;
 
         this.objHijriYear = initHijriDate.Hyear;
@@ -75,7 +75,7 @@ export class DateAdj {
     }
 
     replaceProperties(oldProperties) {
-        this.curGregDate = oldProperties.curGregDate;
+        this.incrementedCalcGregDate = oldProperties.incrementedCalcGregDate;
         this.increment = oldProperties.increment;
 
         this.objHijriYear = oldProperties.objHijriYear;
@@ -109,8 +109,8 @@ export class DateAdj {
         return boolMonthChange;
     }
 
-    getObjGregDate() {
-        return new Date(this.curGregDate.getTime() + (this.increment * 24 * 60 * 60 * 1000));
+    getIncrementedCalcGregDate() {
+        return new Date(this.incrementedCalcGregDate.getTime() + (this.increment * 24 * 60 * 60 * 1000));
     }
 
     incrementBtn() {
@@ -119,6 +119,7 @@ export class DateAdj {
     }
 
     decrementBtn() {
+        //only decrement if previous days exist
         this.increment -= 1;
         return this.decrementObjDay();
     }
@@ -126,7 +127,7 @@ export class DateAdj {
     //returns True if month changed
     incrementObjDay() {
         var boolMonthChange = false;
-        //if the numbers of days greater than or equal to the month's max
+        //if the numbers of days is greater than or equal to the month's max
         if (this.objHijriDay >= this.monthMaxArray[this.monthMaxArrayIndex]) {
             //increment the month and go to day one (for new month)
             boolMonthChange = true;
@@ -141,7 +142,21 @@ export class DateAdj {
             //code to keep track of months max
             //if the next new month's max is not added yet then add that
             if (this.monthMaxArrayIndex == this.monthMaxArray.length - 1) {
-                this.monthMaxArray.push(this.getMaxCalcDays());
+                //if the user had changed a month's max, causing the different date to show then the calculated date, adjust so that the calender always goes towards the calc date
+                var calculatedHijri = this.convertToHijriDate(this.getIncrementedCalcGregDate());
+                if (this.objHijriDay != calculatedHijri.Hday || this.objHijriMonth != calculatedHijri.Hmonth || this.objHijriYear != calculatedHijri.Hyear) {
+                    //if the user is behind the calculation (meaning it says Rajab 1 when it is infact Rajab 2) then set days to 29
+                    if (this.ifObjHijriLessThan(calculatedHijri)) {
+                        this.monthMaxArray.push(29);
+                    }
+                    //if the user is ahead of the calculation (meaning it says Rajab 2 when it is infact Rajab 1) then set days to 30
+                    else {
+                        this.monthMaxArray.push(30);
+                    }
+                }
+                else {
+                    this.monthMaxArray.push(this.getMaxCalcDays());
+                }
             }
             console.log(this.monthMaxArray);
             this.monthMaxArrayIndex += 1;
@@ -150,6 +165,24 @@ export class DateAdj {
             this.objHijriDay += 1;
         }
         return boolMonthChange;
+    }
+
+    //returns true if objHijri is less than inputHijri
+    ifObjHijriLessThan(inputHijri) {
+        if (this.objHijriYear < inputHijri.Hyear) {
+            return true;
+        }
+        else if (this.objHijriYear == inputHijri.Hyear) {
+            if (this.objHijriMonth < inputHijri.Hmonth) {
+                return true;
+            }
+            else if (this.objHijriMonth == inputHijri.Hmonth) {
+                if (this.objHijriDay < inputHijri.Hday) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     //returns the calculated max number of days for current obj month

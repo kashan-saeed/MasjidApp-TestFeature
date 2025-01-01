@@ -2,7 +2,7 @@
 '''
 This is an API for Hijri Umalqurra Calendar,
 it was developed  by khalid Al-hussayen 1436-3-15 2015-1-6.
-The algrothem of converting hijri to  Gregorian is in hijri.py
+The algrothem of converting hijri to Gregorian is in hijri.py
 This Api will give the ability to convert Gregorian To Hijri or Hijri to Gregorian with the day and month names in Hijri and Gregorian
 You can query for the current day in both Hijri and Gregorian
 '''

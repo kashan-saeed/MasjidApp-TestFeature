@@ -14,7 +14,7 @@ const objGregDateMessage = document.querySelector('.objGregDateMessage');
 const objCalcDateMessage = document.querySelector('.objCalcDateMessage');
 
 //init date 
-var currMaghrebTime = new Date("December 24, 2024 5:00 PM"); //replace this with current maghreb time
+var currMaghrebTime = new Date("December 31, 2024 5:00 PM"); //call a func that returns the current maghreb time
 var dateObj = new DateAdj(new Date(), currMaghrebTime);
 var oldDateObjProp = undefined;
 
@@ -96,6 +96,7 @@ btnCancel.addEventListener('click', () => {
 
 btnReset.addEventListener('click', () => {
     oldDateObjProp = undefined;
+    currMaghrebTime = new Date("December 31, 2024 5:00 PM"); //call a func that returns the current maghreb time
     dateObj = new DateAdj(new Date(), currMaghrebTime);
     isFirstClick = true;
     invisibleTrio();
@@ -128,11 +129,13 @@ function visibleTrio() {
     btnCancel.style.visibility="visible";
 }
 
-function debugMessage() {
-    var objGregDate = dateObj.getObjGregDate();
-    objGregDateMessage.innerHTML = (`${objGregDate.getMonth() + 1}/${objGregDate.getDate()}`)
 
-    var calcHijri = dateObj.convertToHijriDate(objGregDate);
+// Comment this funciton out if removing debugger from html
+function debugMessage() {
+    var objIncrementedGregDate = dateObj.getIncrementedCalcGregDate();
+    objGregDateMessage.innerHTML = (`${objIncrementedGregDate.getMonth() + 1}/${objIncrementedGregDate.getDate()}`)
+
+    var calcHijri = dateObj.convertToHijriDate(objIncrementedGregDate);
     objCalcDateMessage.innerHTML = (`${dateObj.getMonthString(calcHijri.Hmonth - 1)} ${calcHijri.Hday}`);
 }
 

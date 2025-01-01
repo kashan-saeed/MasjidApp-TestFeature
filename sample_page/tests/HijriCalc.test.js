@@ -1,6 +1,6 @@
 //to test test cases just wite "npm test" in the terminal when in the sample_pages directory
 
-import {convertGregToHijri, convertHijriToGreg} from "../TMACal.js";
+import {convertGregToHijri, convertHijriToGreg} from "../HijriCalc.js";
 
 describe("Test that input is Date type", () => {
     test('is Date object', () => {
