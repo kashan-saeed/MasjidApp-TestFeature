@@ -16,7 +16,7 @@ const objCalcDateMessage = document.querySelector('.objCalcDateMessage');
 
 //init date 
 var currMaghrebTime = new Date(); //call a func that returns the current maghreb time also put that func in "btnReset.addEventListener"
-currMaghrebTime.setHours(7,0,0);
+currMaghrebTime.setHours(19,0,0);
 var dateObj = new DateAdj(new Date(), currMaghrebTime);
 var oldDateObjProp = undefined;
 
@@ -99,7 +99,7 @@ btnCancel.addEventListener('click', () => {
 btnReset.addEventListener('click', () => {
     oldDateObjProp = undefined;
     currMaghrebTime = new Date(); //call a func that returns the current maghreb time
-    currMaghrebTime.setHours(7,0,0);
+    currMaghrebTime.setHours(19,0,0);
     dateObj = new DateAdj(new Date(), currMaghrebTime); //change this to the current time
     isFirstClick = true;
     invisibleTrio();
