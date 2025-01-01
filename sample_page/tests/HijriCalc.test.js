@@ -8,7 +8,7 @@ describe("Test that input is Date type", () => {
 
         var calObj = convertGregToHijri(theDate);
         expect(calObj.Hday).toBe(24);
-        expect(calObj.Hmonth).toBe(8);
+        expect(calObj.Hmonth).toBe(7);
         expect(calObj.Hyear).toBe(1445);
     });
 
@@ -44,7 +44,7 @@ describe("Test Greg to Hijri", () => {
 
         var calObj = convertGregToHijri(theDate);
         expect(calObj.Hday).toBe(24);
-        expect(calObj.Hmonth).toBe(8);
+        expect(calObj.Hmonth).toBe(7); //hijri month is also zero indexed
         expect(calObj.Hyear).toBe(1445);
     });
 
@@ -54,7 +54,7 @@ describe("Test Greg to Hijri", () => {
 
         var calObj = convertGregToHijri(theDate); 
         expect(calObj.Hday).toBe(22);
-        expect(calObj.Hmonth).toBe(6);
+        expect(calObj.Hmonth).toBe(5);
         expect(calObj.Hyear).toBe(1446);
     });
 
@@ -64,33 +64,33 @@ describe("Test Greg to Hijri", () => {
 
         var calObj = convertGregToHijri(theDate); 
         expect(calObj.Hday).toBe(19);
-        expect(calObj.Hmonth).toBe(8);
+        expect(calObj.Hmonth).toBe(7);
         expect(calObj.Hyear).toBe(1445);
     });
 })
 
 describe("Test Hijri to greg", () => {
     test('24 Shabaan should return 3/5/2024', () => {
-        var dateObj = convertHijriToGreg(1445, 8, 24);
+        var dateObj = convertHijriToGreg(1445, 7, 24);
 
         expect(dateObj.getDate()).toBe(5);
-        expect(dateObj.getMonth()+1).toBe(3);
+        expect(dateObj.getMonth()).toBe(2); //since DateTime month is zero indezed
         expect(dateObj.getFullYear()).toBe(2024);
     });
 
     test('30 Shabaan doesnt exist but can return 3/11/2024', () => {
-        var dateObj = convertHijriToGreg(1445, 8, 30);
+        var dateObj = convertHijriToGreg(1445, 7, 30);
 
         expect(dateObj.getDate()).toBe(11);
-        expect(dateObj.getMonth()+1).toBe(3);
+        expect(dateObj.getMonth()).toBe(2); //since DateTime month is zero indezed
         expect(dateObj.getFullYear()).toBe(2024);
     });
 
     test('19 Shaban (8) 1445 should return 2/29/2024 (leap day)', () => {
-        var dateObj = convertHijriToGreg(1445, 8, 19);
+        var dateObj = convertHijriToGreg(1445, 7, 19);
 
         expect(dateObj.getDate()).toBe(29);
-        expect(dateObj.getMonth()+1).toBe(2);
+        expect(dateObj.getMonth()).toBe(1); //since DateTime month is zero indezed
         expect(dateObj.getFullYear()).toBe(2024);
     });
 })

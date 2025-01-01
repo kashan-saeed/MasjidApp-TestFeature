@@ -134,8 +134,8 @@ export class DateAdj {
             this.objHijriMonth += 1;
             this.objHijriDay = 1;
             //if you incremented the last month, add a year and go to first month now
-            if (this.objHijriMonth == 13) {
-                this.objHijriMonth = 1;
+            if (this.objHijriMonth == 12) {
+                this.objHijriMonth = 0;
                 this.objHijriYear += 1;
             }
 
@@ -201,7 +201,7 @@ export class DateAdj {
             this.objHijriMonth -= 1;
 
             if (this.objHijriMonth == 0) {
-                this.objHijriMonth = 12;
+                this.objHijriMonth = 11;
                 this.objHijriYear -= 1;
             }
 
@@ -224,7 +224,7 @@ export class DateAdj {
     }
 
     getMonthYearString() {
-        var outputString = (`${this.getMonthString(this.objHijriMonth - 1)} ${this.objHijriDay}`);
+        var outputString = (`${this.getMonthString(this.objHijriMonth)} ${this.objHijriDay}`);
         return outputString;
     }
 

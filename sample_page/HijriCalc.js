@@ -25,8 +25,7 @@ var ummalqura_dat = new Array(28607,28636,28665,28695,28724,28754,28783,28813,28
 
         var day = gregInput.getDate();
         var month = gregInput.getMonth();
-        var year = gregInput.getFullYear();
-  
+        var year = gregInput.getFullYear()
         var m = month + 1;
         var y = year;
   
@@ -88,7 +87,7 @@ var ummalqura_dat = new Array(28607,28636,28665,28695,28724,28754,28783,28813,28
               year: year,
               wkday: wkday,
               Hday: id,
-              Hmonth: im,
+              Hmonth: im  - 1, //to make it 0-indexed
               Hyear: iy,
               Hlength: ml,
               ilunnum: iln,
@@ -101,13 +100,13 @@ var ummalqura_dat = new Array(28607,28636,28665,28695,28724,28754,28783,28813,28
   /**
   * Converts Hijri date (is a calObj) to Gregorian (Date object). If the Hijri calendar day does not exist like 30 Shaban, 1445 then it will give that gregorian day as if it did. Meaning it will return 3/11/2024 as that is a day after 29 Shaban (3/10/2024).
   * @param {Number} Year
-  * @param {Number} Month 1-indexed
+  * @param {Number} Month input is 0-indexed
   * @param {Number} Day
   * @return {Date} Date
   */
   function convertHijriToGreg(hijriInputYear, hijriInputMonth, hijriInputDay) {
         var iy = hijriInputYear;
-        var im = hijriInputMonth;
+        var im = hijriInputMonth + 1;
         var id = hijriInputDay;
         var ii = iy - 1;
         var iln = (ii * 12) + 1 + (im - 1);

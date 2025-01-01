@@ -10,12 +10,13 @@ const btnSave = document.querySelector('.btnSave');
 const btnCancel = document.querySelector('.btnCancel');
 const btnReset = document.querySelector('.btnReset');
 const dateMessage = document.querySelector('.dateMessage');
+//these two need to be commented out if not using debugger
 const objGregDateMessage = document.querySelector('.objGregDateMessage');
 const objCalcDateMessage = document.querySelector('.objCalcDateMessage');
 
 //init date 
-var currMaghrebTime = new Date("December 31, 2024 5:00 PM"); //call a func that returns the current maghreb time
-var dateObj = new DateAdj(new Date(), currMaghrebTime);
+var currMaghrebTime = new Date("April 10, 2024 9:00 PM"); //call a func that returns the current maghreb time also put that func in "btnReset.addEventListener"
+var dateObj = new DateAdj(new Date("April 10 2024 "), currMaghrebTime);
 var oldDateObjProp = undefined;
 
 //init 29/30 button, make trio invisible, set first click to true
