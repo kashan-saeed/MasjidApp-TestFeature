@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  font-family: Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dateMessage {
+  font-weight: bold;
+}
+
+.maxMonthArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  background: #eee;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+button:active {
+  background: #006c91;
+}
